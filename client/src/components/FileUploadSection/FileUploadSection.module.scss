@@ -1,0 +1,10 @@
+.container {
+    border: 2px dashed #ccc;
+}
+
+.form {
+    display: flex;
+    flex-basis: 60%;
+    flex-shrink: 0;
+    width: 100%;
+}
