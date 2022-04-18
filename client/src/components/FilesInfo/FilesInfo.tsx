@@ -13,16 +13,13 @@ const FilesInfo: FC = () => {
 
     return (
         <List className={styles.list}>
-            {[...filesStore.files].map((file, i, arr) => (
-                <React.Fragment key={i}>
-                    <ListItem>
-                        <ListItemIcon>
-                            <InsertDriveFileOutlinedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={file.name} secondary={getFormattedFileSize(file.size)} />
-                    </ListItem>
-                    {i !== arr.length - 1 && <Divider />}
-                </React.Fragment>
+            {[...filesStore.files].map((file, i) => (
+                <ListItem key={i} className={styles.listItem}>
+                    <ListItemIcon>
+                        <InsertDriveFileOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={file.name} secondary={getFormattedFileSize(file.size)} />
+                </ListItem>
             ))}
         </List>
     );

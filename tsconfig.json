@@ -12,7 +12,8 @@
         "isolatedModules": true,
         "jsx": "preserve",
         "incremental": true,
-        "outDir": "build"
+        "outDir": "build",
+        "typeRoots": ["types", "./node_modules/@types"]
     },
     "exclude": ["client", "build"],
     "include": ["."]

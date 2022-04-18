@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
+import filesRouter from './routes/files.route';
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -10,6 +11,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
+app.use('/api/files', filesRouter);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

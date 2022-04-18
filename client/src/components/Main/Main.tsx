@@ -6,10 +6,12 @@ import styles from './Main.module.scss';
 
 const Main: FC = () => {
     return (
-        <Container className={styles.container}>
-            <FileUploadSection />
-            <FilesInfo />
-        </Container>
+        <div className={styles.main}>
+            <Container className={styles.container}>
+                <FileUploadSection />
+                <FilesInfo />
+            </Container>
+        </div>
     );
 };
 
