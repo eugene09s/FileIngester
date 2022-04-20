@@ -1,4 +1,5 @@
 import { useTheme } from '@mui/material';
+import { blue, lightBlue } from '@mui/material/colors';
 import { useStore } from 'context/RootStoreContext';
 import React, { useCallback, useRef } from 'react';
 import preventDefaults from 'utils/preventDefaults';
@@ -12,39 +13,49 @@ function getActiveBorderImage(color: string) {
 function useDrag() {
     const theme = useTheme();
     const containerRef = useRef<HTMLDivElement>(null);
+    const iconRef = useRef<SVGSVGElement>(null);
     const dragCounterRef = useRef<number>(0);
     const { filesStore } = useStore();
+    const setFile = filesStore.setFile.bind(filesStore);
 
     const highlight = useCallback(() => {
         containerRef.current?.style.setProperty('background-image', getActiveBorderImage(theme.palette.primary.main));
+        containerRef.current?.style.setProperty('background-color', '#e6f1ff');
+        iconRef.current?.style.setProperty('top', '-10px');
     }, [theme.palette.primary.main]);
 
     const unhighlight = useCallback(() => {
         containerRef.current?.style.removeProperty('background-image');
+        containerRef.current?.style.removeProperty('background-color');
+        iconRef.current?.style.removeProperty('top');
     }, []);
 
     const dropHandler = useCallback(
         (e: React.DragEvent) => {
-            dragCounterRef.current = 0;
-
             preventDefaults(e);
+
+            if (filesStore.file !== null) return;
+
+            dragCounterRef.current = 0;
             unhighlight();
 
             const files = e.dataTransfer.files;
 
-            if (files) filesStore.setFiles(files);
+            if (files) setFile(files[0]);
         },
-        [unhighlight, filesStore]
+        [unhighlight, filesStore.file, setFile]
     );
 
     const dragEnterHandler = useCallback(
         (e: React.DragEvent) => {
+            if (filesStore.file !== null) return;
+
             dragCounterRef.current++;
 
             preventDefaults(e);
             highlight();
         },
-        [highlight]
+        [highlight, filesStore.file]
     );
 
     const dragLeaveHandler = useCallback(
@@ -60,7 +71,7 @@ function useDrag() {
 
     const dragOverHandler = useCallback(preventDefaults, []);
 
-    return { containerRef, dragEnterHandler, dragLeaveHandler, dropHandler, dragOverHandler };
+    return { containerRef, iconRef, dragEnterHandler, dragLeaveHandler, dropHandler, dragOverHandler };
 }
 
 export default useDrag;

@@ -11,7 +11,7 @@ function useFilesSelect() {
         input.multiple = true;
 
         input.addEventListener('change', function () {
-            if (this.files) filesStore.setFiles(this.files);
+            if (this.files) filesStore.setFile(this.files[0]);
         });
         input.click();
     }, [filesStore]);

@@ -1,0 +1,46 @@
+.paper {
+    border-radius: 21px;
+    padding: 20px;
+    position: relative;
+
+    .fileName {
+        max-width: 75%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .progress {
+        border-radius: 12px;
+        flex-shrink: 0;
+        flex-grow: 1;
+
+        &Label {
+            width: 40px;
+            margin-left: 12px;
+            text-align: right;
+        }
+    }
+}
+
+.animation {
+    &Enter {
+        opacity: 0;
+        top: 60px;
+    }
+
+    &EnterActive {
+        opacity: 1;
+        top: 0;
+        transition: opacity 0.3s ease 0.1s, top 0.3s ease;
+    }
+
+    &Exit {
+        opacity: 1;
+    }
+
+    &ExitActive {
+        opacity: 0;
+        transition: opacity 0.3s ease 0.1s;
+    }
+}
