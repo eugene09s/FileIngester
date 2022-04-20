@@ -3,6 +3,12 @@ import { useStore } from 'context/RootStoreContext';
 import React, { useCallback, useRef } from 'react';
 import preventDefaults from 'utils/preventDefaults';
 
+function getActiveBorderImage(color: string) {
+    const imageColor = color.replace('#', '');
+
+    return `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='21' ry='21' stroke='%23${imageColor}FF' stroke-width='4' stroke-dasharray='8%2c 16' stroke-dashoffset='2' stroke-linecap='round'/%3e%3c/svg%3e")`;
+}
+
 function useDrag() {
     const theme = useTheme();
     const containerRef = useRef<HTMLDivElement>(null);
@@ -10,11 +16,11 @@ function useDrag() {
     const { filesStore } = useStore();
 
     const highlight = useCallback(() => {
-        containerRef.current?.style.setProperty('border-color', theme.palette.primary.main);
+        containerRef.current?.style.setProperty('background-image', getActiveBorderImage(theme.palette.primary.main));
     }, [theme.palette.primary.main]);
 
     const unhighlight = useCallback(() => {
-        containerRef.current?.style.removeProperty('border-color');
+        containerRef.current?.style.removeProperty('background-image');
     }, []);
 
     const dropHandler = useCallback(

@@ -7,9 +7,9 @@ import styles from './Main.module.scss';
 const Main: FC = () => {
     return (
         <div className={styles.main}>
-            <Container className={styles.container}>
+            <Container className={styles.container} maxWidth="md">
                 <FileUploadSection />
-                <FilesInfo />
+                {/* <FilesInfo /> */}
             </Container>
         </div>
     );

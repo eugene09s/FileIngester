@@ -1,7 +1,14 @@
 .main {
+    height: 100vh;
+    background: #e9f3fe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     .container {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
+        border-radius: 40px;
+        background: #fff;
+        padding: 40px;
+        box-shadow: 0 0 30px #d1e2f3;
     }
 }
