@@ -1,5 +1,6 @@
 import { useStore } from 'context/RootStoreContext';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { UploadStatuses } from 'stores/FilesStore';
 
 function useFilesHandler() {
     const { filesStore } = useStore();
@@ -13,14 +14,15 @@ function useFilesHandler() {
                 setProgress((progress) => {
                     if (timerRef.current !== null && progress >= 100) {
                         clearInterval(timerRef.current);
+                        filesStore.setStatus(UploadStatuses.UPLOADED);
                         return progress;
                     }
 
                     return progress + 10;
                 });
-            }, 500);
+            }, 300);
         }
-    }, []);
+    }, [filesStore]);
 
     useEffect(() => {
         if (filesStore.file !== null) uploadFile();

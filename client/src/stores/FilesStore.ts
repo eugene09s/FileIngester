@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 
 export const fileStorageTimeVariants = ['1 день', '7 дней', '14 дней'];
 
-export enum UploadStatus {
+export enum UploadStatuses {
     NO_FILE,
     UPLOADING,
     ERROR,
@@ -12,7 +12,7 @@ export enum UploadStatus {
 class FilesStore {
     file: File | null = null;
     storageTime: string = fileStorageTimeVariants[0];
-    status: UploadStatus = UploadStatus.NO_FILE;
+    status: UploadStatuses = UploadStatuses.NO_FILE;
 
     constructor() {
         makeAutoObservable(this);
@@ -20,13 +20,14 @@ class FilesStore {
 
     setFile(file: File) {
         this.file = file;
+        this.setStatus(UploadStatuses.UPLOADING);
     }
 
     setSotrageTime(storageTime: string) {
         this.storageTime = storageTime;
     }
 
-    setStatus(status: UploadStatus) {
+    setStatus(status: UploadStatuses) {
         this.status = status;
     }
 }

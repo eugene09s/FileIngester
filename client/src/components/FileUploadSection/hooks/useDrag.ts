@@ -16,7 +16,6 @@ function useDrag() {
     const iconRef = useRef<SVGSVGElement>(null);
     const dragCounterRef = useRef<number>(0);
     const { filesStore } = useStore();
-    const setFile = filesStore.setFile.bind(filesStore);
 
     const highlight = useCallback(() => {
         containerRef.current?.style.setProperty('background-image', getActiveBorderImage(theme.palette.primary.main));
@@ -41,9 +40,9 @@ function useDrag() {
 
             const files = e.dataTransfer.files;
 
-            if (files) setFile(files[0]);
+            if (files) filesStore.setFile(files[0]);
         },
-        [unhighlight, filesStore.file, setFile]
+        [unhighlight, filesStore]
     );
 
     const dragEnterHandler = useCallback(

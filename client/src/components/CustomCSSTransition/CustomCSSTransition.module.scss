@@ -1,0 +1,28 @@
+.animation {
+    &Enter {
+        opacity: 0;
+        top: 30px;
+        position: relative;
+    }
+
+    &EnterActive {
+        opacity: 1;
+        top: 0;
+        transition: opacity 0.3s ease 0.1s, top 0.3s ease;
+    }
+
+    &Exit {
+        opacity: 1;
+        position: relative;
+        top: 0;
+    }
+
+    &ExitActive {
+        opacity: 0;
+        top: 30px;
+        height: 0;
+        order: 2;
+        margin-top: 0;
+        transition: opacity 0.3s ease, top 0.3s ease, height 0.3s ease;
+    }
+}
