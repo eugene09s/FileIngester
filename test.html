@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Express File Upload</title>
+</head>
+<body>
+<h1>Express File Upload</h1>
+<form method="POST" action="/api/files/upload" enctype="multipart/form-data">
+    <input type="file" name="file"/>
+    <label>
+        <input type="number" name="expirationMS" required/>
+    </label>
+    <input type="submit"/>
+</form>
+</body>
+</html>
