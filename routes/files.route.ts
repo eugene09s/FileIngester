@@ -3,7 +3,9 @@ import filesController from '../controllers/files/files.controller';
 
 const router = Router();
 
-// check http://localhost:3001/api/files/any_id
+//http://localhost:3001/api/files
+router.post('/upload', filesController.uploadFile);
 router.get('/:fileId', filesController.getFileInfo);
+router.get('/download/:fileId', filesController.downloadFile)
 
 export default router;
