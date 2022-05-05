@@ -1,0 +1,23 @@
+.main {
+    min-height: 100vh;
+    background: #e9f3fe;
+    display: flex;
+    flex-direction: column;
+
+    .container {
+        margin-top: 50px;
+        margin-bottom: 50px;
+
+        .fileUploadContainer {
+            width: 100%;
+            border-radius: 40px;
+            background: #fff;
+            padding: 40px;
+            box-shadow: 0 0 30px #d1e2f3;
+            max-height: 447px;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            margin-top: 30px;
+        }
+    }
+}
