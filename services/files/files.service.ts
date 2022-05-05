@@ -10,8 +10,15 @@ const FileInfoModel: Model<FileInfo> = databaseConnectionService.connectToDB();
 let fs = require('fs');
 const {CronJob} = require('cron');
 
-new CronJob('0 0 * * * *', () => {
-    console.log('Expired files cleaner triggered!');
+new CronJob('0 0 * * * *', () => cleanExpiredFiles()).start();
+
+new CronJob('0 0 0 * * *', () => cleanExpiredFileInfos).start();
+
+cleanExpiredFiles();
+cleanExpiredFileInfos();
+
+function cleanExpiredFiles() {
+    console.log('Expired files cleaner job triggered!');
     FileInfoModel.find((err, fileInfos) => {
         if (!err) {
             fileInfos.forEach(fileInfo => {
@@ -27,7 +34,36 @@ new CronJob('0 0 * * * *', () => {
             throw err;
         }
     })
-}).start();
+}
+
+function cleanExpiredFileInfos() {
+    console.log('Expired file infos cleaner job triggered!');
+    FileInfoModel.find((err, fileInfos) => {
+        if (!err) {
+            fileInfos.forEach(fileInfo => {
+                //1 day
+                if (fileInfo.deleteDate <= (new Date(Date.now() - 86400000))) {
+                    fileInfo.deleteOne((err: any, res: any) => {
+                        if (!err) {
+                            if (res) {
+                                console.log('File info for ' + fileInfo._id + ' id is expired! Deleted.');
+                            }
+                        } else {
+                            throw err;
+                        }
+                    })
+                    let path = './uploads/' + fileInfo._id + '.lz4';
+                    if (fs.existsSync(path)) {
+                        fs.unlinkSync(path);
+                        console.log(path + " is deleted due to expiration")
+                    }
+                }
+            })
+        } else {
+            throw err;
+        }
+    })
+}
 
 class FilesService {
 
