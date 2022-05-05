@@ -7,7 +7,6 @@ import fileUpload from "express-fileupload";
 
 const FileInfoModel: Model<FileInfo> = databaseConnectionService.connectToDB();
 
-let LZ4 = require('lz4')
 let fs = require('fs');
 const {CronJob} = require('cron');
 
@@ -67,8 +66,7 @@ class FilesService {
         });
 
         //Compress and upload to directory
-        let outputData = LZ4.encode(uploadedFile.data, {highCompression: true});
-        await fs.writeFile('./uploads/' + id + '.lz4', outputData, (err: any) => {
+        await fs.writeFile('./uploads/' + id + '.lz4', uploadedFile.data, (err: any) => {
             if (!err) {
                 console.log('File: ./uploads/' + id + '.lz4 is uploaded!');
             } else {
@@ -93,9 +91,8 @@ class FilesService {
             return null;
         }
         let compressedContent = fs.readFileSync(path);
-        let decompressedContent = LZ4.decode(compressedContent);
         console.log("File " + path + " is downloaded!");
-        return decompressedContent;
+        return compressedContent;
     }
 
     deleteFile(fileId: string) {
