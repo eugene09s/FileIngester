@@ -14,6 +14,12 @@ class FilesController {
         try {
             let fileInfo = await fileService.getFileInfo({fileId});
             if (fileInfo) {
+                if (fileInfo.deleteDate <= new Date()) {
+                    res.status(410).json({error: 'File is expired'});
+                    fileService.deleteFile(fileId);
+                    console.log("File with id" + fileId + " is deleted due to expiration during getting him")
+                    return;
+                }
                 res.status(200).json({data: fileInfo});
             } else {
                 res.status(404).json({error: 'File not found'});
@@ -53,6 +59,12 @@ class FilesController {
             let fileInfo = await fileService.getFileInfo({fileId});
             if (!fileInfo) {
                 res.status(404).json({error: 'File not found'});
+                return;
+            }
+            if (fileInfo.deleteDate <= new Date()) {
+                res.status(410).json({error: 'File is expired'});
+                fileService.deleteFile(fileId);
+                console.log("File with id" + fileId + " is deleted due to expiration during getting him")
                 return;
             }
             let fileContent = await fileService.downloadFile(fileId);
