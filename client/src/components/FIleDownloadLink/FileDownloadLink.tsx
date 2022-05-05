@@ -1,8 +1,8 @@
 import { Button, Grid, Link, Typography } from '@mui/material';
 import { useStore } from 'context/RootStoreContext';
 import { observer } from 'mobx-react-lite';
-import { FC, useCallback } from 'react';
-import { UploadStatuses } from 'stores/FilesStore';
+import { FC } from 'react';
+import useDownloadLink from './hooks/useDownloadLink';
 import styles from './FileDownloadLink.module.scss';
 
 interface Props {
@@ -11,12 +11,7 @@ interface Props {
 }
 
 const FileDownloadLink: FC<Props> = (props) => {
-    const { filesStore } = useStore();
-    const link = `${window.location.origin}/file/${filesStore.uploadedFileId}`;
-
-    const uploadMore = useCallback(() => {
-        filesStore.setStatus(UploadStatuses.NO_FILE);
-    }, [filesStore]);
+    const { link, linkCopied, uploadMore, copyLink } = useDownloadLink();
 
     if (props.error) {
         return (
@@ -42,10 +37,17 @@ const FileDownloadLink: FC<Props> = (props) => {
                     {link}
                 </Link>
             </Grid>
-            <Grid item>
-                <Button className={styles.uploadMore} variant="contained" onClick={uploadMore}>
-                    Загрузить еще
-                </Button>
+            <Grid container item direction="column" alignItems="center" spacing={2} mt={0.5}>
+                <Grid item width="100%">
+                    <Button variant="contained" onClick={copyLink} color={linkCopied ? 'success' : undefined} className={styles.btn}>
+                        {linkCopied ? 'Ссылка скопирована' : 'Скопировать ссылку'}
+                    </Button>
+                </Grid>
+                <Grid item width="100%">
+                    <Button variant="contained" onClick={uploadMore} className={styles.btn}>
+                        Загрузить еще
+                    </Button>
+                </Grid>
             </Grid>
         </Grid>
     );
