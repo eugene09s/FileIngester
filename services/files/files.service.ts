@@ -9,6 +9,26 @@ const FileInfoModel: Model<FileInfo> = databaseConnectionService.connectToDB();
 
 let LZ4 = require('lz4')
 let fs = require('fs');
+const {CronJob} = require('cron');
+
+new CronJob('0 0 * * * *', () => {
+    console.log('Expired files cleaner triggered!');
+    FileInfoModel.find((err, fileInfos) => {
+        if (!err) {
+            fileInfos.forEach(fileInfo => {
+                if (fileInfo.deleteDate <= new Date()) {
+                    let path = './uploads/' + fileInfo._id + '.lz4';
+                    if (fs.existsSync(path)) {
+                        fs.unlinkSync(path);
+                        console.log(path + " is deleted due to expiration")
+                    }
+                }
+            })
+        } else {
+            throw err;
+        }
+    })
+}).start();
 
 class FilesService {
 
@@ -40,7 +60,7 @@ class FilesService {
         newFile.downloads = 0;
         await newFile.save(function (err) {
             if (!err) {
-                console.log("Document " + newFile.name + " is inserted to DB successfully!");
+                console.log("File info for " + newFile.name + " is inserted to DB successfully!");
             } else {
                 throw err;
             }
@@ -58,7 +78,7 @@ class FilesService {
     }
 
     incrementDownloads(fileId: string) {
-        FileInfoModel.findByIdAndUpdate(fileId, {$inc : {'downloads' : 1}}, (err: any) => {
+        FileInfoModel.findByIdAndUpdate(fileId, {$inc: {'downloads': 1}}, (err: any) => {
             if (err) {
                 throw err;
             }
@@ -76,6 +96,13 @@ class FilesService {
         let decompressedContent = LZ4.decode(compressedContent);
         console.log("File " + path + " is downloaded!");
         return decompressedContent;
+    }
+
+    deleteFile(fileId: string) {
+        let path = './uploads/' + fileId + '.lz4';
+        if (fs.existsSync(path)) {
+            fs.unlinkSync(path);
+        }
     }
 }
 
