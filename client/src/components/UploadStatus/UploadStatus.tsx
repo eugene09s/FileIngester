@@ -1,8 +1,7 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './UploadStatus.module.scss';
 import { observer } from 'mobx-react-lite';
 import { useStore } from 'context/RootStoreContext';
-import { CSSTransition } from 'react-transition-group';
 import c from 'classnames';
 import ProgressUpload from './ProgressUpload';
 import { UploadStatuses } from 'stores/FilesStore';

@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControlLabel, FormGroup, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { FC } from 'react';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import styles from './FileUploadSection.module.scss';
@@ -7,7 +7,8 @@ import useFilesSelect from './hooks/useFilesSelect';
 import { observer } from 'mobx-react-lite';
 import FileStorageTimeSelection from '../FileStorageTimeSelection';
 import { useStore } from 'context/RootStoreContext';
-import { CSSTransition } from 'react-transition-group';
+import CustomCSSTransition from '@components/CustomCSSTransition';
+import { UploadStatuses } from 'stores/FilesStore';
 
 const FileUploadSection: FC = () => {
     const { containerRef, iconRef, dragEnterHandler, dragLeaveHandler, dropHandler, dragOverHandler } = useDrag();
@@ -40,21 +41,13 @@ const FileUploadSection: FC = () => {
                     </Button>
                 </Grid>
             </Grid>
-            <CSSTransition
-                in={filesStore.file === null}
-                timeout={300}
-                classNames={{
-                    exit: styles.animationExit,
-                    exitActive: styles.animationExitActive,
-                }}
-                unmountOnExit
-            >
+            <CustomCSSTransition show={filesStore.status === UploadStatuses.NO_FILE} timeout={300}>
                 <Grid container mt={3} position="relative">
                     <Grid item>
                         <FileStorageTimeSelection />
                     </Grid>
                 </Grid>
-            </CSSTransition>
+            </CustomCSSTransition>
         </form>
     );
 };

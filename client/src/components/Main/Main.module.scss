@@ -2,25 +2,33 @@
     min-height: 100vh;
     background: #e9f3fe;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
 
     .container {
-        border-radius: 40px;
-        background: #fff;
-        padding: 40px;
-        box-shadow: 0 0 30px #d1e2f3;
-        max-height: 447px;
-        overflow: hidden;
-        transition: max-height 0.35s ease;
-        margin-top: 150px;
-        margin-bottom: 150px;
+        margin-top: 100px;
+        margin-bottom: 100px;
 
-        &.fileAttached {
-            max-height: 600px;
+        .fileUploadContainer {
+            width: 100%;
+            border-radius: 40px;
+            background: #fff;
+            padding: 40px;
+            box-shadow: 0 0 30px #d1e2f3;
+            max-height: 447px;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            margin-top: 30px;
+
+            &.fileAttached {
+                max-height: 600px;
+            }
+
+            .uploadStatus {
+                margin-top: 20px;
+            }
         }
 
-        .uploadStatus {
+        .downloadLink {
             margin-top: 20px;
         }
     }

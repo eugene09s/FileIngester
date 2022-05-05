@@ -7,14 +7,12 @@ import App from './components/App';
 import './styles/global.scss';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <StyledEngineProvider injectFirst>
-                <RootStoreContextProvider>
-                    <App />
-                </RootStoreContextProvider>
-            </StyledEngineProvider>
-        </BrowserRouter>
-    </React.StrictMode>,
+    <BrowserRouter>
+        <StyledEngineProvider injectFirst>
+            <RootStoreContextProvider>
+                <App />
+            </RootStoreContextProvider>
+        </StyledEngineProvider>
+    </BrowserRouter>,
     document.getElementById('root')
 );

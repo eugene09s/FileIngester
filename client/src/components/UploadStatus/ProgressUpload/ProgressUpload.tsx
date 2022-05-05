@@ -2,12 +2,11 @@ import { Grid, LinearProgress, Typography } from '@mui/material';
 import { useStore } from 'context/RootStoreContext';
 import { FC } from 'react';
 import getFormattedFileSize from 'utils/getFormattedFileSize';
-import useFilesHandler from '../hooks/useFilesHandler';
 import styles from './ProgressUpload.module.scss';
 import parentStyles from '../UploadStatus.module.scss';
+import { observer } from 'mobx-react-lite';
 
 const ProgressUpload: FC = () => {
-    const { progress } = useFilesHandler();
     const { filesStore } = useStore();
 
     return (
@@ -28,13 +27,13 @@ const ProgressUpload: FC = () => {
                 </Grid>
             )}
             <Grid item container alignItems="center" justifyContent="space-between">
-                <LinearProgress variant="determinate" value={progress} className={styles.progress} />
+                <LinearProgress variant="determinate" value={filesStore.uploadProgress} className={styles.progress} />
                 <Typography component="p" color="GrayText" className={styles.progressLabel}>
-                    {progress}%
+                    {filesStore.uploadProgress}%
                 </Typography>
             </Grid>
         </Grid>
     );
 };
 
-export default ProgressUpload;
+export default observer(ProgressUpload);

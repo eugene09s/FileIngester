@@ -17,7 +17,7 @@ const CompletedUpload: FC = () => {
             <Grid container item direction="column" spacing={1} width="auto">
                 <Grid item>
                     <Typography component="p" variant="h6">
-                        {!isError ? 'Файл не загружен' : 'Файл успешно загружен'}
+                        {isError ? 'Произошла ошибка, файл не был загружен' : 'Файл успешно загружен'}
                     </Typography>
                 </Grid>
                 {filesStore.file !== null && (
@@ -28,7 +28,7 @@ const CompletedUpload: FC = () => {
                     </Grid>
                 )}
             </Grid>
-            <Grid item>{!isError ? <ErrorIcon {...iconProps} /> : <SuccessIcon {...iconProps} />}</Grid>
+            <Grid item>{isError ? <ErrorIcon {...iconProps} /> : <SuccessIcon {...iconProps} />}</Grid>
         </Grid>
     );
 };
