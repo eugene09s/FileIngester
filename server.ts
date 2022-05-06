@@ -19,15 +19,10 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
-//FOR TESTING PURPOSE
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "test.html"));
-});
-
 if (!dev) {
     app.use(express.static(path.join(__dirname, './client')));
 
     app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, './client/test.html'));
+        res.sendFile(path.join(__dirname, './client/index.html'));
     });
 }

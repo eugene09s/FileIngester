@@ -1,12 +1,12 @@
-import FileUploadSection from '@components/FileUploadSection';
+import FileUploadSection from '@components/pages/UploadPage/FileUploadSection';
 import { Container, Grid, Typography } from '@mui/material';
 import { useStore } from 'context/RootStoreContext';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 import styles from './Main.module.scss';
 import c from 'classnames';
-import UploadStatus from '@components/UploadStatus';
-import FileDownloadLink from '@components/FIleDownloadLink';
+import UploadStatus from '@components/pages/UploadPage/UploadStatus';
+import FileDownloadLink from '@components/pages/UploadPage/FIleDownloadLink';
 import { UploadStatuses } from 'stores/FilesStore';
 
 const Main: FC = () => {

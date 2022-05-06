@@ -1,5 +1,4 @@
 import { Button, Grid, Link, Typography } from '@mui/material';
-import { useStore } from 'context/RootStoreContext';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 import useDownloadLink from './hooks/useDownloadLink';

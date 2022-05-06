@@ -7,7 +7,7 @@ import useFilesSelect from './hooks/useFilesSelect';
 import { observer } from 'mobx-react-lite';
 import FileStorageTimeSelection from '../FileStorageTimeSelection';
 import { useStore } from 'context/RootStoreContext';
-import CustomCSSTransition from '@components/CustomCSSTransition';
+import CustomCSSTransition from '@components/ui/CustomCSSTransition';
 import { UploadStatuses } from 'stores/FilesStore';
 
 const FileUploadSection: FC = () => {

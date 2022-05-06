@@ -7,7 +7,7 @@ import ProgressUpload from './ProgressUpload';
 import { UploadStatuses } from 'stores/FilesStore';
 import CompletedUpload from './CompletedUpload';
 import { Paper } from '@mui/material';
-import CustomCSSTransition from '@components/CustomCSSTransition';
+import CustomCSSTransition from '@components/ui/CustomCSSTransition';
 
 interface Props {
     className?: string;

@@ -4,7 +4,7 @@ import { UploadStatuses } from 'stores/FilesStore';
 
 function useDownloadLink() {
     const { filesStore } = useStore();
-    const link = `${window.location.origin}/file/${filesStore.uploadedFileId}`;
+    const link = `${window.location.origin}/download/${filesStore.uploadedFileId}`;
     const [linkCopied, setLinkCopied] = useState<boolean>(false);
 
     const uploadMore = useCallback(() => {

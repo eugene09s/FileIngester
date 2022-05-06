@@ -1,10 +1,10 @@
-import ErrorIcon from '@components/AnimatedIcons/ErrorIcon';
-import { IconProps } from '@components/AnimatedIcons/types';
+import ErrorIcon from '@components/ui/AnimatedIcons/ErrorIcon';
+import { IconProps } from '@components/ui/AnimatedIcons/types';
 import { Grid, Typography } from '@mui/material';
 import { useStore } from 'context/RootStoreContext';
 import { FC } from 'react';
 import { UploadStatuses } from 'stores/FilesStore';
-import SuccessIcon from '../../AnimatedIcons/SuccessIcon';
+import SuccessIcon from '../../../../ui/AnimatedIcons/SuccessIcon';
 import parentStyles from '../UploadStatus.module.scss';
 
 const CompletedUpload: FC = () => {
